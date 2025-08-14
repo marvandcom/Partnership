@@ -344,7 +344,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="jurisdiction">9. Jurisdiction of Police Station of company</label>
+                    <label for="jurisdiction">9. Jurisdiction of Police Station</label>
                     <input type="text" id="jurisdiction" placeholder="Enter jurisdiction">
                 </div>
                 
@@ -417,10 +417,10 @@
                     <p>I hereby confirm that the information provided is true and accurate to the best of my knowledge.</p>
                 </div>
                 
-                <div class="actions">
-                <button type="submit" id="submitBtn">Submit Form</button>
-                <button type="button" id="printBtn" onclick="printForm()">Save as PDF</button>
-            </div>
+                <div class="action-buttons">
+                     <button type="submit" id="submitBtn">Submit Form</button>
+                     <button type="button" id="printBtn" onclick="printForm()">Save as PDF</button>
+                </div>
             </section>
             
             <section class="documents-section">
@@ -479,10 +479,7 @@
                     </li>
                 </ol>
                 
-                <div class="action-buttons">
-                    <button class="btn btn-primary"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
-                    <button class="btn btn-secondary"><i class="fas fa-envelope"></i> Send via Email</button>
-                </div>
+                
             </section>
         </div>
         
@@ -493,38 +490,14 @@
     </div>
 
     <script>
-        
+          
         // Form submission
-        document.getElementById('submitBtn').addEventListener('click', function() {
-            // Basic validation
-            let isValid = true;
-            const requiredFields = document.querySelectorAll('input[required], textarea[required]');
-            
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.style.borderColor = 'red';
-                } else {
-                    field.style.borderColor = '#cbd5e0';
-                }
-            });
-            
-            if (isValid) {
-                // Show success message
-                this.innerHTML = '<i class="fas fa-check"></i> Submitted!';
-                this.disabled = true;
-                
-                // Reset after 3 seconds
-                setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Form';
-                    this.disabled = false;
-                    alert('Form submitted successfully! Please download the PDF for your records.');
-                }, 3000);
-            } else {
-                alert('Please fill in all required fields.');
+ // Print function (Save as PDF)
+            function printForm() {
+                window.print();
             }
-        });
-        // Form submission handler
+
+            // Form submission handler
             document.getElementById('partnershipForm').addEventListener('submit', function(e) {
                 e.preventDefault();
 
@@ -538,6 +511,7 @@
                 // Scroll to success message
                 document.getElementById('successMessage').scrollIntoView({behavior: 'smooth'});
             });
+        
         // Add partner button
         document.querySelectorAll('.add-btn').forEach(button => {
             button.addEventListener('click', function() {
