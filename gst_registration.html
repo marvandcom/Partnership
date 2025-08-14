@@ -587,46 +587,23 @@
             <div class="contact-info">
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
-                    <span>info@marvandco.com</span>
+                    <span>www.marvandco.com</span>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
-                    <span>+91 1234567890</span>
+                    <span>+91 7025173905</span>
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-headset"></i>
-                    <span>GST Helpdesk: gst@marvandco.com</span>
+                    <span>GST Helpdesk: marvandco@gmail.com</span>
                 </div>
             </div>
         </footer>
     </div>
 
     <script>
-        // File upload functionality
-        const uploadArea = document.getElementById('uploadArea');
-        const fileInput = document.getElementById('fileInput');
-        const fileList = document.getElementById('fileList');
-        const progressBar = document.getElementById('progressBar');
-        const loadingContainer = document.getElementById('loadingContainer');
-        const successMessage = document.getElementById('successMessage');
-        
-        // Function to format file size
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-        
-        // Function to get file icon based on file type
-        function getFileIcon(fileType) {
-            if (fileType.includes('image')) return 'far fa-image';
-            if (fileType.includes('pdf')) return 'far fa-file-pdf';
-            if (fileType.includes('word')) return 'far fa-file-word';
-            if (fileType.includes('excel') || fileType.includes('spreadsheet')) return 'far fa-file-excel';
-            return 'far fa-file';
-        }
+      
+      
         
         uploadArea.addEventListener('click', () => {
             fileInput.click();
@@ -696,15 +673,6 @@
         // Form submission
         document.getElementById('gstRegistrationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            // Get all uploaded files
-            const fileItems = document.querySelectorAll('.file-item');
-            
-            // Check if at least 3 files are uploaded
-            if (fileItems.length < 3) {
-                alert('Please upload at least 3 required documents');
-                return;
-            }
             
             // Show loading indicator
             loadingContainer.style.display = 'block';
