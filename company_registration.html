@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
+        #printBtn { display: none; background: #27ae60; } /* Initially hidden */
+            #printBtn:hover { background: #219653; }
         * {
             margin: 0;
             padding: 0;
@@ -522,25 +524,49 @@
                     const newDirector = document.createElement('div');
                     newDirector.className = 'director-row';
                     newDirector.innerHTML = `
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" placeholder="Full name">
+                       <div class="form-group">
+                            <label for="directorName1">Name</label>
+                            <input type="text" id="directorName1" placeholder="Full name">
                         </div>
                         <div class="form-group">
-                            <label>Designation</label>
-                            <input type="text" placeholder="Position">
+                            <label for="designation1">Designation</label>
+                            <input type="text" id="designation1" placeholder="Position">
                         </div>
                         <div class="form-group">
-                            <label>DIN Number</label>
-                            <input type="text" placeholder="Director Identification Number">
+                            <label for="din1">DIN Number</label>
+                            <input type="text" id="din1" placeholder="Director Identification Number">
                         </div>
                         <div class="form-group">
-                            <label>PAN Number</label>
-                            <input type="text" placeholder="Permanent Account Number">
+                            <label for="pan1">PAN Number</label>
+                            <input type="text" id="pan1" placeholder="Permanent Account Number">
                         </div>
                         <div class="form-group">
-                            <label>Date of Birth</label>
-                            <input type="date">
+                            <label for="dob1">Date of Birth</label>
+                            <input type="date" id="dob1">
+                        </div>
+                        <div class="form-group">
+                            <label for="fat1">Fathers Name</label>
+                            <input type="text" id="fat1" placeholder="Father's name">
+                        </div>
+                        <div class="form-group">
+                            <label for="adt1">Address</label>
+                            <input type="text" id="adt1" placeholder="Your address">
+                        </div>
+                         <div class="form-group">
+                            <label for="adt1">Phone no</label>
+                            <input type="text" id="phn1" placeholder="Your phone no">
+                        </div>
+                        <div class="form-group">
+                            <label for="adt1">Mail ID</label>
+                            <input type="text" id="mid1" placeholder="Your mail id">
+                        </div>
+                         <div class="form-group">
+                            <label for="adt1">Educational qualification</label>
+                            <input type="text" id="edu1" placeholder="Your educational qualification">
+                        </div>
+                        <div class="form-group">
+                            <label for="adt1">Jurisdiction of police station</label>
+                            <input type="text" id="edu1" placeholder="Your Police station jurisdiction">
                         </div>
                     `;
                     container.insertBefore(newDirector, this);
