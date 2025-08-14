@@ -297,7 +297,17 @@
             
             <div class="form-section">
                 <h2 class="section-title">Registration Form</h2>
-                <form id="gstRegistrationForm">
+                <form 
+                    id="gstRegistrationForm"
+                    action="https://formspree.io/f/YOUR_FORM_ID" 
+                    method="POST"
+                    enctype="multipart/form-data"
+                    >
+                     <!-- Hidden fields for Formspree configuration -->
+                    <input type="hidden" name="_subject" value="New GST Registration - Marv & Co">
+                    <input type="hidden" name="_replyto" value="marvandcom@gmail.com"> <!-- Will be overridden -->
+                    <input type="hidden" name="_language" value="en">
+                    
                     <div class="form-group">
                         <label class="required">Business Name</label>
                         <input type="text" class="form-control" placeholder="Legal business name as per PAN" required>
