@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GST Registration - Marv & Co Chartered Accountants</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -13,10 +14,11 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            background: linear-gradient(135deg, #f0f7ff 0%, #e1f0ff 100%);
             min-height: 100vh;
             padding: 20px;
             color: #333;
+            line-height: 1.6;
         }
         
         .container {
@@ -27,16 +29,30 @@
         header {
             text-align: center;
             padding: 30px 0;
-            background: #2c3e50;
+            background: linear-gradient(to right, #2c3e50, #1a2530);
             color: white;
-            border-radius: 10px 10px 0 0;
+            border-radius: 15px;
             margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #3498db, #27ae60);
         }
         
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .subheading {
@@ -44,14 +60,15 @@
             opacity: 0.9;
             max-width: 800px;
             margin: 0 auto;
+            font-weight: 300;
         }
         
         .back-btn {
             position: absolute;
             top: 30px;
             left: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
             padding: 10px 20px;
             border-radius: 50px;
@@ -61,10 +78,12 @@
             align-items: center;
             gap: 8px;
             transition: all 0.3s;
+            backdrop-filter: blur(5px);
         }
         
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(-5px);
         }
         
         .content-container {
@@ -76,11 +95,18 @@
         
         .documents-section, .form-section {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
             flex: 1;
             min-width: 300px;
+            border: 1px solid #eaeaea;
+            transition: transform 0.3s ease;
+        }
+        
+        .documents-section:hover, .form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
         }
         
         .section-title {
@@ -89,6 +115,14 @@
             padding-bottom: 15px;
             border-bottom: 2px solid #3498db;
             font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title i {
+            color: #3498db;
+            font-size: 1.6rem;
         }
         
         .documents-list {
@@ -98,10 +132,10 @@
         
         .documents-list li {
             margin-bottom: 20px;
-            padding-left: 35px;
+            padding-left: 45px;
             position: relative;
             font-size: 16px;
-            line-height: 1.6;
+            line-height: 1.7;
         }
         
         .documents-list li:before {
@@ -112,33 +146,55 @@
             top: 0;
             background: #3498db;
             color: white;
-            width: 26px;
-            height: 26px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
+            box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
         }
         
         .note-box {
             background: #fff8e6;
             border-left: 4px solid #ffc107;
-            padding: 15px;
+            padding: 20px;
             margin-top: 25px;
-            border-radius: 4px;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .note-box h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e67e22;
+            margin-bottom: 12px;
+        }
+        
+        .note-box ul {
+            padding-left: 25px;
+        }
+        
+        .note-box li {
+            margin-bottom: 10px;
         }
         
         .form-group {
             margin-bottom: 25px;
+            position: relative;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
             color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         .form-group .required::after {
@@ -148,46 +204,63 @@
         
         .form-control {
             width: 100%;
-            padding: 14px;
+            padding: 15px;
             border: 1px solid #ddd;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 16px;
-            transition: border 0.3s;
+            transition: all 0.3s;
+            background: #f9fbfd;
         }
         
         .form-control:focus {
             border-color: #3498db;
             outline: none;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background: white;
         }
         
         .upload-area {
             border: 2px dashed #3498db;
-            border-radius: 8px;
-            padding: 25px;
+            border-radius: 10px;
+            padding: 30px;
             text-align: center;
             margin-top: 10px;
             background: #f8fcff;
             cursor: pointer;
             transition: all 0.3s;
+            position: relative;
         }
         
         .upload-area:hover {
             background: #e8f4fc;
+            border-color: #2980b9;
         }
         
         .upload-icon {
             font-size: 48px;
             color: #3498db;
             margin-bottom: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .upload-area:hover .upload-icon {
+            transform: translateY(-5px);
         }
         
         .file-input {
-            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
         }
         
         .file-list {
             margin-top: 20px;
+            display: grid;
+            gap: 12px;
         }
         
         .file-item {
@@ -195,45 +268,99 @@
             justify-content: space-between;
             align-items: center;
             background: #f8f9fa;
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            border-left: 3px solid #3498db;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .file-icon {
+            font-size: 20px;
+            color: #3498db;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        
+        .file-size {
+            font-size: 13px;
+            color: #7f8c8d;
         }
         
         .remove-file {
             color: #e74c3c;
             cursor: pointer;
-            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.2s;
+            padding: 5px;
+        }
+        
+        .remove-file:hover {
+            transform: scale(1.2);
         }
         
         .submit-btn {
-            background: #27ae60;
+            background: linear-gradient(to right, #27ae60, #2ecc71);
             color: white;
             border: none;
-            padding: 16px 32px;
+            padding: 18px 35px;
             font-size: 18px;
-            border-radius: 6px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             width: 100%;
-            transition: background 0.3s;
+            transition: all 0.3s;
             margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
         }
         
         .submit-btn:hover {
-            background: #219653;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
         }
         
         footer {
             text-align: center;
             margin-top: 40px;
-            padding: 20px;
+            padding: 25px;
             color: #7f8c8d;
             font-size: 0.9rem;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
         @media (max-width: 768px) {
@@ -255,6 +382,66 @@
                 padding: 8px 15px;
                 font-size: 14px;
             }
+            
+            .documents-section, .form-section {
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .progress-container {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: #3498db;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .loading-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -262,7 +449,7 @@
     <div class="container">
         <header>
             <button class="back-btn" onclick="window.location.href='index.html'">
-                ← Back to Home
+                <i class="fas fa-arrow-left"></i> Back to Home
             </button>
             <h1>GST Registration Services</h1>
             <p class="subheading">Complete your GST registration with our expert assistance</p>
@@ -270,7 +457,9 @@
         
         <div class="content-container">
             <div class="documents-section">
-                <h2 class="section-title">Required Documents</h2>
+                <h2 class="section-title">
+                    <i class="fas fa-file-alt"></i> Required Documents
+                </h2>
                 <ul class="documents-list">
                     <li><strong>Copy of Aadhaar Card</strong> - Front and back copies</li>
                     <li><strong>Mobile Number linked with Aadhaar Card</strong> - Must be active and accessible</li>
@@ -280,52 +469,62 @@
                     <li><strong>Building receipt of rented property</strong> - Latest property tax receipt or ownership proof</li>
                     <li><strong>Utility Bill</strong> - Electricity Bill or Gas Bill (not older than 2 months)</li>
                     <li><strong>Passport size photo</strong> - Recent color photograph with white background</li>
-                    <li><strong>Location details of property</strong> - Longitude and latitude of business premises (can be shared via WhatsApp)</li>
+                    <li><strong>Location details of property</strong> - Longitude and latitude of business premises</li>
                     <li><strong>Product description</strong> - Detailed list of goods/services with HSN/SAC codes</li>
                 </ul>
                 
                 <div class="note-box">
-                    <h3>Important Notes:</h3>
-                    <ul style="padding-left: 20px; margin-top: 10px;">
+                    <h3><i class="fas fa-exclamation-circle"></i> Important Notes:</h3>
+                    <ul>
                         <li>All documents must be clear, legible scans (PDF, JPG, or PNG)</li>
-                        <li>File size should not exceed 2MB per document</li>
+                        <li>File size should not exceed 5MB per document</li>
                         <li>Ensure name on all documents matches PAN card</li>
                         <li>Digital signature required for companies and LLPs</li>
+                        <li>Documents should be recent (within last 3 months)</li>
                     </ul>
                 </div>
             </div>
             
             <div class="form-section">
-                <h2 class="section-title">Registration Form</h2>
-                <form 
-                    id="gstRegistrationForm"
-                    action="https://formspree.io/f/YOUR_FORM_ID" 
-                    method="POST"
-                    enctype="multipart/form-data"
-                    >
-                     <!-- Hidden fields for Formspree configuration -->
+                <h2 class="section-title">
+                    <i class="fas fa-edit"></i> Registration Form
+                </h2>
+                
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> Application submitted successfully! Our team will contact you within 24 hours.
+                </div>
+                
+                <div class="loading-container" id="loadingContainer">
+                    <div class="spinner"></div>
+                    <p>Submitting your application. Please wait...</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                </div>
+                
+                <form id="gstRegistrationForm" action="https://formspree.io/f/mwpqzlwz" method="POST" enctype="multipart/form-data">
+                    <!-- Formspree configuration -->
                     <input type="hidden" name="_subject" value="New GST Registration - Marv & Co">
-                    <input type="hidden" name="_replyto" value="marvandcom@gmail.com"> <!-- Will be overridden -->
-                    <input type="hidden" name="_language" value="en">
+                    <input type="hidden" name="_replyto" value="client@example.com">
                     
                     <div class="form-group">
-                        <label class="required">Business Name</label>
-                        <input type="text" class="form-control" placeholder="Legal business name as per PAN" required>
+                        <label class="required"><i class="fas fa-building"></i> Business Name</label>
+                        <input type="text" name="business_name" class="form-control" placeholder="Legal business name as per PAN" required>
                     </div>
                     
                     <div class="form-group">
-                        <label class="required">PAN Number</label>
-                        <input type="text" class="form-control" placeholder="10-character PAN" required maxlength="10">
+                        <label class="required"><i class="fas fa-id-card"></i> PAN Number</label>
+                        <input type="text" name="pan_number" class="form-control" placeholder="10-character PAN" required maxlength="10">
                     </div>
                     
                     <div class="form-group">
-                        <label class="required">Business Address</label>
-                        <textarea class="form-control" rows="3" placeholder="Full address of principal place of business" required></textarea>
+                        <label class="required"><i class="fas fa-map-marker-alt"></i> Business Address</label>
+                        <textarea name="business_address" class="form-control" rows="3" placeholder="Full address of principal place of business" required></textarea>
                     </div>
                     
                     <div class="form-group">
-                        <label class="required">Business Type</label>
-                        <select class="form-control" required>
+                        <label class="required"><i class="fas fa-briefcase"></i> Business Type</label>
+                        <select name="business_type" class="form-control" required>
                             <option value="">Select Business Type</option>
                             <option value="proprietorship">Proprietorship</option>
                             <option value="partnership">Partnership</option>
@@ -336,23 +535,23 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="required">Mobile Number</label>
-                        <input type="tel" class="form-control" placeholder="Mobile linked with Aadhaar" required>
+                        <label class="required"><i class="fas fa-mobile-alt"></i> Mobile Number</label>
+                        <input type="tel" name="mobile_number" class="form-control" placeholder="Mobile linked with Aadhaar" required>
                     </div>
                     
                     <div class="form-group">
-                        <label class="required">Email Address</label>
-                        <input type="email" class="form-control" placeholder="Official email address" required>
+                        <label class="required"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" name="email" class="form-control" placeholder="Official email address" required>
                     </div>
                     
                     <div class="form-group">
-                        <label class="required">Date of Commencement</label>
-                        <input type="date" class="form-control" required>
+                        <label class="required"><i class="fas fa-calendar-alt"></i> Date of Commencement</label>
+                        <input type="date" name="commencement_date" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label class="required">Business Category</label>
-                        <select class="form-control" required>
+                        <label class="required"><i class="fas fa-tags"></i> Business Category</label>
+                        <select name="business_category" class="form-control" required>
                             <option value="">Select Business Category</option>
                             <option value="goods">Goods (Manufacturer/Trader)</option>
                             <option value="services">Services Provider</option>
@@ -361,40 +560,58 @@
                     </div>
                     
                     <div class="form-group">
-                        <label>Expected Annual Turnover (₹)</label>
-                        <input type="number" class="form-control" placeholder="Estimated annual turnover">
+                        <label><i class="fas fa-chart-line"></i> Expected Annual Turnover (₹)</label>
+                        <input type="number" name="annual_turnover" class="form-control" placeholder="Estimated annual turnover">
                     </div>
                     
                     <div class="form-group">
-                        <label class="required">Upload Required Documents</label>
+                        <label class="required"><i class="fas fa-cloud-upload-alt"></i> Upload Required Documents</label>
                         <div class="upload-area" id="uploadArea">
-                            <div class="upload-icon">📁</div>
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
                             <p>Click to upload documents or drag & drop files here</p>
-                            <p style="font-size: 14px; color: #7f8c8d; margin-top: 8px;">(PDF, JPG, PNG - Max 2MB per file)</p>
-                            <input type="file" class="file-input" id="fileInput" multiple>
+                            <p style="font-size: 14px; color: #7f8c8d; margin-top: 8px;">(PDF, JPG, PNG - Max 5MB per file)</p>
+                            <input type="file" class="file-input" id="fileInput" name="files[]" multiple>
                         </div>
                         <div class="file-list" id="fileList"></div>
                     </div>
                     
                     <div class="form-group">
-                        <label>Additional Information</label>
-                        <textarea class="form-control" rows="3" placeholder="Any special requirements or notes"></textarea>
+                        <label><i class="fas fa-info-circle"></i> Additional Information</label>
+                        <textarea name="additional_info" class="form-control" rows="3" placeholder="Any special requirements or notes"></textarea>
                     </div>
                     
                     <div class="form-group">
                         <label>
-                            <input type="checkbox" required> I declare that all information provided is correct
+                            <input type="checkbox" name="declaration" required> 
+                            <i class="fas fa-check-square"></i> I declare that all information provided is correct
                         </label>
                     </div>
                     
-                    <button type="submit" class="submit-btn">Submit Application</button>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Submit Application
+                    </button>
                 </form>
             </div>
         </div>
         
         <footer>
             <p>© 2023 Marv & Co Chartered Accountants. All rights reserved.</p>
-            <p>Contact: info@marvandco.com | Phone: +91 1234567890 | GST Helpdesk: gst@marvandco.com</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@marvandco.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+91 1234567890</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-headset"></i>
+                    <span>GST Helpdesk: gst@marvandco.com</span>
+                </div>
+            </div>
         </footer>
     </div>
 
@@ -403,6 +620,27 @@
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
         const fileList = document.getElementById('fileList');
+        const progressBar = document.getElementById('progressBar');
+        const loadingContainer = document.getElementById('loadingContainer');
+        const successMessage = document.getElementById('successMessage');
+        
+        // Function to format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // Function to get file icon based on file type
+        function getFileIcon(fileType) {
+            if (fileType.includes('image')) return 'far fa-image';
+            if (fileType.includes('pdf')) return 'far fa-file-pdf';
+            if (fileType.includes('word')) return 'far fa-file-word';
+            if (fileType.includes('excel') || fileType.includes('spreadsheet')) return 'far fa-file-excel';
+            return 'far fa-file';
+        }
         
         uploadArea.addEventListener('click', () => {
             fileInput.click();
@@ -436,9 +674,9 @@
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 
-                // Check file size (max 2MB)
-                if (file.size > 2 * 1024 * 1024) {
-                    alert(`File ${file.name} exceeds 2MB limit. Please upload a smaller file.`);
+                // Check file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert(`File "${file.name}" exceeds 5MB limit. Please upload a smaller file.`);
                     continue;
                 }
                 
@@ -446,8 +684,16 @@
                 const fileItem = document.createElement('div');
                 fileItem.className = 'file-item';
                 fileItem.innerHTML = `
-                    <div>${file.name}</div>
-                    <div class="remove-file" data-file="${file.name}">✕</div>
+                    <div class="file-info">
+                        <i class="${getFileIcon(file.type)} file-icon"></i>
+                        <div>
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${formatFileSize(file.size)}</div>
+                        </div>
+                    </div>
+                    <div class="remove-file" data-file="${file.name}">
+                        <i class="fas fa-times"></i>
+                    </div>
                 `;
                 fileList.appendChild(fileItem);
             }
@@ -462,22 +708,68 @@
         }
         
         // Form submission
-        document.getElementById('gstRegistrationForm').addEventListener('submit', function(e) {
+        document.getElementById('gstRegistrationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            // Get all uploaded files
+            const fileItems = document.querySelectorAll('.file-item');
+            
             // Check if at least 3 files are uploaded
-            const uploadedFiles = document.querySelectorAll('.file-item');
-            if (uploadedFiles.length < 3) {
+            if (fileItems.length < 3) {
                 alert('Please upload at least 3 required documents');
                 return;
             }
             
-            // Show confirmation
-            alert('Application submitted successfully! Our team will contact you within 24 hours.');
+            // Show loading indicator
+            loadingContainer.style.display = 'block';
+            successMessage.style.display = 'none';
             
-            // Reset form
-            this.reset();
-            fileList.innerHTML = '';
+            // Simulate progress bar animation
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = `${progress}%`;
+                if (progress >= 100) clearInterval(interval);
+            }, 200);
+            
+            try {
+                // Create FormData object
+                const formData = new FormData(this);
+                
+                // Submit form data to Formspree
+                const response = await fetch(this.action, {
+                    method: this.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                // Handle response
+                if (response.ok) {
+                    // Hide loading indicator
+                    loadingContainer.style.display = 'none';
+                    
+                    // Show success message
+                    successMessage.style.display = 'block';
+                    
+                    // Reset form after a delay
+                    setTimeout(() => {
+                        this.reset();
+                        fileList.innerHTML = '';
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Hide loading indicator
+                loadingContainer.style.display = 'none';
+                
+                // Show error message
+                alert('Error submitting form. Please try again.');
+                console.error('Form submission error:', error);
+            }
         });
     </script>
 </body>
