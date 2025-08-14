@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Company Registration Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        #printBtn { display: none; background: #27ae60; } /* Initially hidden */
-        #printBtn:hover { background: #219653; }
         * {
             margin: 0;
             padding: 0;
@@ -24,7 +21,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
@@ -98,6 +95,11 @@
             font-weight: 600;
             color: #2d3748;
             font-size: 1.05rem;
+        }
+
+        .required::after {
+            content: " *";
+            color: #e53e3e;
         }
 
         input, select, textarea {
@@ -242,6 +244,17 @@
             transform: translateY(-3px);
         }
 
+        .btn-success {
+            background: linear-gradient(to right, #38a169, #48bb78);
+            color: white;
+            box-shadow: 0 4px 10px rgba(72, 187, 120, 0.3);
+        }
+
+        .btn-success:hover {
+            background: linear-gradient(to right, #2f855a, #38a169);
+            transform: translateY(-3px);
+        }
+
         .confirmation-section {
             background: #f0fff4;
             padding: 25px;
@@ -283,6 +296,17 @@
             font-size: 0.9rem;
         }
 
+        .success-message {
+            background: #f0fff4;
+            color: #2f855a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 25px;
+            border-left: 4px solid #48bb78;
+            display: none;
+        }
+
         @media (max-width: 768px) {
             .content-wrapper {
                 flex-direction: column;
@@ -290,6 +314,40 @@
             
             .director-row .form-group {
                 flex: 1 1 100%;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+            
+            header, .documents-section, .action-buttons, .success-message {
+                display: none;
+            }
+            
+            .form-section {
+                box-shadow: none;
+                padding: 20px;
+                margin: 0;
+                width: 100%;
+            }
+            
+            .add-btn, #printBtn {
+                display: none;
+            }
+            
+            .confirmation-section {
+                border: 2px solid #38a169;
+            }
+            
+            .sub-section {
+                page-break-inside: avoid;
             }
         }
     </style>
@@ -301,66 +359,72 @@
             <p>Complete this form to register your company and view the required documents for incorporation</p>
         </header>
         
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle fa-2x"></i>
+            <h2>Form Submitted Successfully!</h2>
+            <p>Please print this form for your records. You can also save it as PDF using your browser's print function.</p>
+        </div>
+        
         <div class="content-wrapper">
             <section class="form-section" id="registration-form">
                 <h2 class="section-title"><i class="fas fa-file-alt"></i> Company Registration Form</h2>
                 
                 <div class="form-group">
-                    <label for="companyName">1. Name of the Company</label>
-                    <input type="text" id="companyName" placeholder="Enter company name">
+                    <label for="companyName" class="required">1. Name of the Company</label>
+                    <input type="text" id="companyName" placeholder="Enter company name" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="registeredOffice">2. Registered Office Address</label>
-                    <textarea id="registeredOffice" rows="3" placeholder="Full registered address"></textarea>
+                    <label for="registeredOffice" class="required">2. Registered Office Address</label>
+                    <textarea id="registeredOffice" rows="3" placeholder="Full registered address" required></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="businessObjectives">3. Objectives of the Business</label>
-                    <textarea id="businessObjectives" rows="4" placeholder="Describe the main business objectives"></textarea>
+                    <label for="businessObjectives" class="required">3. Objectives of the Business</label>
+                    <textarea id="businessObjectives" rows="4" placeholder="Describe the main business objectives" required></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="directorsCount">4. Number of Directors</label>
-                    <input type="number" id="directorsCount" min="1" value="1">
+                    <label for="directorsCount" class="required">4. Number of Directors</label>
+                    <input type="number" id="directorsCount" min="1" value="1" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="shareholdersCount">5. Number of Shareholders</label>
-                    <input type="number" id="shareholdersCount" min="1" value="1">
+                    <label for="shareholdersCount" class="required">5. Number of Shareholders</label>
+                    <input type="number" id="shareholdersCount" min="1" value="1" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="companyEmail">6. Company Email</label>
-                    <input type="email" id="companyEmail" placeholder="company@example.com">
+                    <label for="companyEmail" class="required">6. Company Email</label>
+                    <input type="email" id="companyEmail" placeholder="company@example.com" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="companyPhone">7. Company Phone Number</label>
-                    <input type="tel" id="companyPhone" placeholder="+1 (123) 456-7890">
+                    <label for="companyPhone" class="required">7. Company Phone Number</label>
+                    <input type="tel" id="companyPhone" placeholder="+1 (123) 456-7890" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="totalCapital">8. Total Capital</label>
-                    <input type="text" id="totalCapital" placeholder="Enter amount">
+                    <label for="totalCapital" class="required">8. Total Capital</label>
+                    <input type="text" id="totalCapital" placeholder="Enter amount" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="jurisdiction">9. Jurisdiction of Police Station</label>
-                    <input type="text" id="jurisdiction" placeholder="Enter jurisdiction">
+                    <label for="jurisdiction" class="required">9. Jurisdiction of Police Station</label>
+                    <input type="text" id="jurisdiction" placeholder="Enter jurisdiction" required>
                 </div>
                 
                 <div class="sub-section">
                     <h3>10. Paid Up Capital</h3>
                     <div class="form-group">
-                        <label for="partner1">Partner 1 & Share Proportion</label>
-                        <input type="text" id="partner1" placeholder="Partner name and share %">
+                        <label for="partner1" class="required">Partner 1 & Share Proportion</label>
+                        <input type="text" id="partner1" placeholder="Partner name and share %" required>
                     </div>
                     <div class="form-group">
                         <label for="partner2">Partner 2 & Share Proportion</label>
                         <input type="text" id="partner2" placeholder="Partner name and share %">
                     </div>
-                    <button class="add-btn"><i class="fas fa-plus"></i> Add Partner</button>
+                    <button type="button" class="add-btn"><i class="fas fa-plus"></i> Add Partner</button>
                 </div>
                 
                 <div class="sub-section">
@@ -395,33 +459,47 @@
                             <input type="text" id="adt1" placeholder="Your address">
                         </div>
                          <div class="form-group">
-                            <label for="adt1">Phone no</label>
+                            <label for="phn1">Phone no</label>
                             <input type="text" id="phn1" placeholder="Your phone no">
                         </div>
                         <div class="form-group">
-                            <label for="adt1">Mail ID</label>
+                            <label for="mid1">Mail ID</label>
                             <input type="text" id="mid1" placeholder="Your mail id">
                         </div>
                          <div class="form-group">
-                            <label for="adt1">Educational qualification</label>
+                            <label for="edu1">Educational qualification</label>
                             <input type="text" id="edu1" placeholder="Your educational qualification">
                         </div>
                         <div class="form-group">
-                            <label for="adt1">Jurisdiction of police station</label>
-                            <input type="text" id="edu1" placeholder="Your Police station jurisdiction">
+                            <label for="jup1">Jurisdiction of police station</label>
+                            <input type="text" id="jup1" placeholder="Your Police station jurisdiction">
                         </div>
                     </div>
-                    <button class="add-btn"><i class="fas fa-plus"></i> Add Director</button>
+                    <button type="button" class="add-btn"><i class="fas fa-plus"></i> Add Director</button>
                 </div>
                 
                 <div class="confirmation-section">
                     <h3><i class="fas fa-check-circle"></i> Confirmation</h3>
                     <p>I hereby confirm that the information provided is true and accurate to the best of my knowledge.</p>
+                    <div class="signature-fields">
+                        <div class="signature-field">
+                            <label>Name</label>
+                            <div class="signature-line"></div>
+                        </div>
+                        <div class="signature-field">
+                            <label>Signature</label>
+                            <div class="signature-line"></div>
+                        </div>
+                        <div class="signature-field">
+                            <label>Date</label>
+                            <div class="signature-line"></div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="action-buttons">
-                     <button type="submit" id="submitBtn">Submit Form</button>
-                     <button type="button" id="printBtn" onclick="printForm()">Save as PDF</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn"><i class="fas fa-paper-plane"></i> Submit Form</button>
+                    <button type="button" class="btn btn-success" id="printBtn" onclick="window.print()"><i class="fas fa-print"></i> Print Form</button>
                 </div>
             </section>
             
@@ -481,7 +559,10 @@
                     </li>
                 </ol>
                 
-                
+                <div class="action-buttons">
+                    <button class="btn btn-primary"><i class="fab fa-whatsapp"></i> Send via WhatsApp</button>
+                    <button class="btn btn-secondary"><i class="fas fa-envelope"></i> Send via Email</button>
+                </div>
             </section>
         </div>
         
@@ -492,27 +573,41 @@
     </div>
 
     <script>
-          
+        // Initialize - hide print button initially
+        document.getElementById('printBtn').style.display = 'none';
+        
         // Form submission
- // Print function (Save as PDF)
-            function printForm() {
-                window.print();
-            }
-
-            // Form submission handler
-            document.getElementById('partnershipForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            // Basic validation
+            let isValid = true;
+            const requiredFields = document.querySelectorAll('input[required], textarea[required]');
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#e53e3e';
+                } else {
+                    field.style.borderColor = '#cbd5e0';
+                }
+            });
+            
+            if (isValid) {
                 // Show success message
                 document.getElementById('successMessage').style.display = 'block';
-
-                // Hide submit button, show print button
-                document.getElementById('submitBtn').style.display = 'none';
-                document.getElementById('printBtn').style.display = 'inline-block';
-
+                
+                // Change submit button text
+                this.innerHTML = '<i class="fas fa-check"></i> Submitted!';
+                this.disabled = true;
+                
+                // Show print button
+                document.getElementById('printBtn').style.display = 'flex';
+                
                 // Scroll to success message
                 document.getElementById('successMessage').scrollIntoView({behavior: 'smooth'});
-            });
+            } else {
+                alert('Please fill in all required fields marked with *');
+            }
+        });
         
         // Add partner button
         document.querySelectorAll('.add-btn').forEach(button => {
@@ -524,50 +619,51 @@
                     const newDirector = document.createElement('div');
                     newDirector.className = 'director-row';
                     newDirector.innerHTML = `
-                       <div class="form-group">
-                            <label for="directorName1">Name</label>
-                            <input type="text" id="directorName1" placeholder="Full name">
+                        <div class="form-group">
+                            <label class="required">Name</label>
+                            <input type="text" placeholder="Full name" required>
                         </div>
                         <div class="form-group">
-                            <label for="designation1">Designation</label>
-                            <input type="text" id="designation1" placeholder="Position">
+                            <label class="required">Designation</label>
+                            <input type="text placeholder="Position" required>
                         </div>
                         <div class="form-group">
-                            <label for="din1">DIN Number</label>
-                            <input type="text" id="din1" placeholder="Director Identification Number">
+                            <label class="required">DIN Number</label>
+                            <input type="text” placeholder="Director Identification Number" required>
                         </div>
                         <div class="form-group">
-                            <label for="pan1">PAN Number</label>
-                            <input type="text" id="pan1" placeholder="Permanent Account Number">
+                            <label class="required">PAN Number</label>
+                            <input type="text" placeholder="Permanent Account Number" required >
                         </div>
                         <div class="form-group">
-                            <label for="dob1">Date of Birth</label>
-                            <input type="date" id="dob1">
+                            <label class="required">Date of Birth</label>
+                            <input type="date" required>
                         </div>
                         <div class="form-group">
-                            <label for="fat1">Fathers Name</label>
-                            <input type="text" id="fat1" placeholder="Father's name">
+                            <label class="required">Fathers Name</label>
+                            <input type="text" placeholder="Father's name" required >
                         </div>
                         <div class="form-group">
-                            <label for="adt1">Address</label>
-                            <input type="text" id="adt1" placeholder="Your address">
+                            <label class="required">Address</label>
+                            <input type="text" placeholder="Your address" required >
                         </div>
                          <div class="form-group">
-                            <label for="adt1">Phone no</label>
-                            <input type="text" id="phn1" placeholder="Your phone no">
+                            <label class="required">Phone no</label>
+                            <input type="text" placeholder="Your phone no" required >
                         </div>
                         <div class="form-group">
-                            <label for="adt1">Mail ID</label>
-                            <input type="text" id="mid1" placeholder="Your mail id">
+                            <label class="required">Mail ID</label>
+                            <input type="text" placeholder="Your mail id" required >
                         </div>
                          <div class="form-group">
-                            <label for="adt1">Educational qualification</label>
-                            <input type="text" id="edu1" placeholder="Your educational qualification">
+                            <label class="required">Educational qualification</label>
+                            <input type="text" placeholder="Your educational qualification" required >
                         </div>
                         <div class="form-group">
-                            <label for="adt1">Jurisdiction of police station</label>
-                            <input type="text" id="edu1" placeholder="Your Police station jurisdiction">
+                            <label class="required">Jurisdiction of police station</label>
+                            <input type="text" placeholder="Your Police station jurisdiction" required >
                         </div>
+
                     `;
                     container.insertBefore(newDirector, this);
                 } else {
