@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Registration - Marv & Co Chartered Accountants</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: #2c3e50;
+            color: white;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subheading {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .content-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .documents-section, .form-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            font-size: 1.8rem;
+        }
+        
+        .documents-list {
+            list-style-type: none;
+            counter-reset: doc-counter;
+        }
+        
+        .documents-list li {
+            margin-bottom: 20px;
+            padding-left: 35px;
+            position: relative;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .documents-list li:before {
+            counter-increment: doc-counter;
+            content: counter(doc-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #3498db;
+            color: white;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .note-box {
+            background: #fff8e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 25px;
+            border-radius: 4px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-group .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 10px;
+            background: #f8fcff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            background: #e8f4fc;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-list {
+            margin-top: 20px;
+        }
+        
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .remove-file {
+            color: #e74c3c;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .submit-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: background 0.3s;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: #219653;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .content-container {
+                flex-direction: column;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .back-btn {
+                top: 15px;
+                left: 15px;
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="back-btn" onclick="window.location.href='index.html'">
+                ← Back to Home
+            </button>
+            <h1>GST Registration Services</h1>
+            <p class="subheading">Complete your GST registration with our expert assistance</p>
+        </header>
+        
+        <div class="content-container">
+            <div class="documents-section">
+                <h2 class="section-title">Required Documents</h2>
+                <ul class="documents-list">
+                    <li><strong>Copy of Aadhaar Card</strong> - Front and back copies</li>
+                    <li><strong>Mobile Number linked with Aadhaar Card</strong> - Must be active and accessible</li>
+                    <li><strong>Copy of PAN Card</strong> - Clear scanned copy</li>
+                    <li><strong>Rent Agreement along with NOC</strong> - Notarized rental agreement with No Objection Certificate from owner</li>
+                    <li><strong>Copy of Aadhaar card of owner</strong> - Owner's Aadhaar card for rented property</li>
+                    <li><strong>Building receipt of rented property</strong> - Latest property tax receipt or ownership proof</li>
+                    <li><strong>Utility Bill</strong> - Electricity Bill or Gas Bill (not older than 2 months)</li>
+                    <li><strong>Passport size photo</strong> - Recent color photograph with white background</li>
+                    <li><strong>Location details of property</strong> - Longitude and latitude of business premises (can be shared via WhatsApp)</li>
+                    <li><strong>Product description</strong> - Detailed list of goods/services with HSN/SAC codes</li>
+                </ul>
+                
+                <div class="note-box">
+                    <h3>Important Notes:</h3>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>All documents must be clear, legible scans (PDF, JPG, or PNG)</li>
+                        <li>File size should not exceed 2MB per document</li>
+                        <li>Ensure name on all documents matches PAN card</li>
+                        <li>Digital signature required for companies and LLPs</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h2 class="section-title">Registration Form</h2>
+                <form id="gstRegistrationForm">
+                    <div class="form-group">
+                        <label class="required">Business Name</label>
+                        <input type="text" class="form-control" placeholder="Legal business name as per PAN" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">PAN Number</label>
+                        <input type="text" class="form-control" placeholder="10-character PAN" required maxlength="10">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">Business Address</label>
+                        <textarea class="form-control" rows="3" placeholder="Full address of principal place of business" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">Business Type</label>
+                        <select class="form-control" required>
+                            <option value="">Select Business Type</option>
+                            <option value="proprietorship">Proprietorship</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="llp">LLP</option>
+                            <option value="pvt-ltd">Private Limited Company</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">Mobile Number</label>
+                        <input type="tel" class="form-control" placeholder="Mobile linked with Aadhaar" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">Email Address</label>
+                        <input type="email" class="form-control" placeholder="Official email address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">Date of Commencement</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">Business Category</label>
+                        <select class="form-control" required>
+                            <option value="">Select Business Category</option>
+                            <option value="goods">Goods (Manufacturer/Trader)</option>
+                            <option value="services">Services Provider</option>
+                            <option value="both">Both Goods & Services</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Expected Annual Turnover (₹)</label>
+                        <input type="number" class="form-control" placeholder="Estimated annual turnover">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">Upload Required Documents</label>
+                        <div class="upload-area" id="uploadArea">
+                            <div class="upload-icon">📁</div>
+                            <p>Click to upload documents or drag & drop files here</p>
+                            <p style="font-size: 14px; color: #7f8c8d; margin-top: 8px;">(PDF, JPG, PNG - Max 2MB per file)</p>
+                            <input type="file" class="file-input" id="fileInput" multiple>
+                        </div>
+                        <div class="file-list" id="fileList"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Additional Information</label>
+                        <textarea class="form-control" rows="3" placeholder="Any special requirements or notes"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" required> I declare that all information provided is correct
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </form>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Marv & Co Chartered Accountants. All rights reserved.</p>
+            <p>Contact: info@marvandco.com | Phone: +91 1234567890 | GST Helpdesk: gst@marvandco.com</p>
+        </footer>
+    </div>
+
+    <script>
+        // File upload functionality
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = '#e1f0ff';
+            uploadArea.style.borderColor = '#27ae60';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.background = '#f8fcff';
+            uploadArea.style.borderColor = '#3498db';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = '#f8fcff';
+            uploadArea.style.borderColor = '#3498db';
+            
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+        
+        fileInput.addEventListener('change', () => {
+            handleFiles(fileInput.files);
+        });
+        
+        function handleFiles(files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                // Check file size (max 2MB)
+                if (file.size > 2 * 1024 * 1024) {
+                    alert(`File ${file.name} exceeds 2MB limit. Please upload a smaller file.`);
+                    continue;
+                }
+                
+                // Add file to list
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div>${file.name}</div>
+                    <div class="remove-file" data-file="${file.name}">✕</div>
+                `;
+                fileList.appendChild(fileItem);
+            }
+            
+            // Add remove functionality
+            document.querySelectorAll('.remove-file').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const fileName = this.getAttribute('data-file');
+                    this.parentElement.remove();
+                });
+            });
+        }
+        
+        // Form submission
+        document.getElementById('gstRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if at least 3 files are uploaded
+            const uploadedFiles = document.querySelectorAll('.file-item');
+            if (uploadedFiles.length < 3) {
+                alert('Please upload at least 3 required documents');
+                return;
+            }
+            
+            // Show confirmation
+            alert('Application submitted successfully! Our team will contact you within 24 hours.');
+            
+            // Reset form
+            this.reset();
+            fileList.innerHTML = '';
+        });
+    </script>
+</body>
+</html>
